@@ -3,6 +3,9 @@ package com.nico.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,40 +16,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nico.ecommerce.model.User;
+import com.nico.ecommerce.service.CrudService;
 import com.nico.ecommerce.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class UserController {
-	
+
 	@Autowired
-	UserService userService;
+	CrudService<User> crudService;
 	
 	@GetMapping("/user")
-	private List<User> getAllUser() {
-		return userService.getAllUser();
-	}
-	
-	@GetMapping("/user/{id}")
-	private User getUser(@PathVariable("id") long id) {
-		return userService.getUserById(id);
-	}
-	
-	@DeleteMapping("/user/{id}")
-	private void deleteUser(@PathVariable("id") long id) {
-		userService.delete(id);
+	public List<User> getAll() {
+		return crudService.listAll();
 	}
 	
 	@PostMapping("/user")
-	private long saveUser(@RequestBody User user) {
-		userService.saveOrUpdate(user);
-		return user.getId();
+	public String save(@RequestBody User user) {
+		crudService.saveOrUpdate(user);
+		return "Record saved!";
+	}
+	
+	@GetMapping("/user/{id}")
+	public User getUser(@PathVariable("id") long id) {
+		return crudService.getById(id);
 	}
 	
 	@PutMapping("/user")
-	private User update(@RequestBody User user) {
-		userService.saveOrUpdate(user);
-		return user;
+	public void update(@RequestBody User user) {
+		crudService.saveOrUpdate(user);
 	}
 	
+	@DeleteMapping("/user/{id}")
+	public void delete(@PathVariable("id") long id) {
+		crudService.delete(id);
+	}
 }
