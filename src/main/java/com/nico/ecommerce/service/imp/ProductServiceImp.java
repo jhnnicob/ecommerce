@@ -25,13 +25,13 @@ public class ProductServiceImp implements CrudService<Product>{
 	}
 
 	@Override
-	public Product saveOrUpdate(Product product) {
-		return productRepository.save(product);
-	}
-
-	@Override
 	public void delete(Long id) {
 		productRepository.deleteById(id);
+	}
+	
+	@Override
+	public Product saveOrUpdate(Product product) {
+		return productRepository.save(product);
 	}
 
 	@Override

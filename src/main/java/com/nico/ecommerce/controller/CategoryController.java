@@ -24,12 +24,12 @@ public class CategoryController {
 	
 	@GetMapping("/category")
 	private List<Category> getAllCategory() {
-		return categoryService.getAllCategory();
+		return categoryService.listAll();
 	}
 	
 	@GetMapping("/category/{id}")
 	private Category getCategory(@PathVariable("id") long id) {
-		return categoryService.getCategoryById(id);
+		return categoryService.getById(id);
 	}
 	
 	@DeleteMapping("/category/{id}")

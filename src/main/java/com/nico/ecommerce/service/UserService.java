@@ -4,4 +4,5 @@ import com.nico.ecommerce.model.User;
 
 public interface UserService extends CrudService<User>{
 
+
 }

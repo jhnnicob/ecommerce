@@ -8,7 +8,7 @@ public interface CrudService<T> {
 	
 	T getById(Long id);
 	
-	T saveOrUpdate(T t);
+	T saveOrUpdate(T object);
 	
 	void delete(Long id);
 	
